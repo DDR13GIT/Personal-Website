@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
+import { WorkExperienceSection } from "@/components/WorkExperienceSection";
 import { PostsSection } from "@/components/PostsSection";
 import { Footer } from "@/components/Footer";
 
@@ -15,6 +16,7 @@ export default function Home() {
         }}
       >
         <HeroSection />
+        <WorkExperienceSection />
         <PostsSection />
         <Footer />
       </div>

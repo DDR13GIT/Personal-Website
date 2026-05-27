@@ -65,6 +65,7 @@ export default async function BlogPostPage({ params }: Props) {
             {/* Back link */}
             <Link
               href="/blog"
+              className="back-link"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -142,6 +143,14 @@ export default async function BlogPostPage({ params }: Props) {
       </div>
 
       <style>{`
+        .back-link {
+          transition: color 180ms var(--ease-out-expo);
+        }
+        @media (hover: hover) and (pointer: fine) {
+          .back-link:hover {
+            color: var(--c-text) !important;
+          }
+        }
         .mdx-prose > * + * {
           margin-top: 0;
         }

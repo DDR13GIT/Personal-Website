@@ -11,7 +11,8 @@ export function Navbar() {
 
   function linkColor(href: string) {
     if (href === "/blog" && pathname.startsWith("/blog")) return "var(--c-link)";
-    if (href === "/about" && (pathname === "/about" || pathname === "/manual")) return "var(--c-link)";
+    if (href === "/projects" && pathname === "/projects") return "var(--c-link)";
+    if (href === "/about" && pathname === "/about") return "var(--c-link)";
     return "var(--c-muted)";
   }
 
@@ -54,6 +55,19 @@ export function Navbar() {
             }}
           >
             Writing
+          </Link>
+          <Link
+            href="/projects"
+            style={{
+              fontFamily: "var(--font-dm-mono), monospace",
+              fontSize: "12px",
+              fontWeight: 400,
+              textTransform: "uppercase",
+              letterSpacing: "1.2px",
+              color: linkColor("/projects"),
+            }}
+          >
+            Projects
           </Link>
           <Link
             href="/about"
@@ -111,19 +125,21 @@ export function Navbar() {
           transform-origin: right center;
           transition: transform 220ms var(--ease-out-expo);
         }
-        .main-nav a:hover {
-          color: var(--c-text) !important;
-        }
-        .main-nav a:hover::after {
-          transform: scaleX(1);
-          transform-origin: left center;
+        @media (hover: hover) and (pointer: fine) {
+          .main-nav a:hover {
+            color: var(--c-text) !important;
+          }
+          .main-nav a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left center;
+          }
+          .theme-toggle:hover {
+            color: var(--c-text) !important;
+            transform: rotate(15deg);
+          }
         }
         .theme-toggle {
           transition: color 180ms var(--ease-out-expo), transform 220ms var(--ease-out-expo);
-        }
-        .theme-toggle:hover {
-          color: var(--c-text) !important;
-          transform: rotate(15deg);
         }
         @media (max-width: 767px) {
           .main-nav {

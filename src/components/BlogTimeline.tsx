@@ -45,6 +45,7 @@ export function BlogTimeline({ posts, filters }: { posts: PostMeta[]; filters: s
           <button
             key={f}
             onClick={() => setActiveFilter(f)}
+            className="filter-btn"
             style={{
               fontFamily: "var(--font-dm-mono), monospace",
               fontSize: "10px",
@@ -159,6 +160,7 @@ export function BlogTimeline({ posts, filters }: { posts: PostMeta[]; filters: s
                   }}
                 >
                   <div
+                    className="timeline-post-title"
                     style={{
                       fontFamily: "var(--font-lora), serif",
                       fontSize: "17px",
@@ -214,8 +216,23 @@ export function BlogTimeline({ posts, filters }: { posts: PostMeta[]; filters: s
       </div>
 
       <style>{`
-        a[href^="/blog/"]:hover > div:first-child {
-          color: var(--c-link) !important;
+        .filter-btn {
+          transition:
+            background-color 160ms var(--ease-out-expo),
+            color 160ms var(--ease-out-expo),
+            border-color 160ms var(--ease-out-expo),
+            transform 120ms var(--ease-out-expo);
+        }
+        .filter-btn:active {
+          transform: scale(0.97);
+        }
+        .timeline-post-title {
+          transition: color 180ms var(--ease-out-expo);
+        }
+        @media (hover: hover) and (pointer: fine) {
+          a:hover .timeline-post-title {
+            color: var(--c-link) !important;
+          }
         }
       `}</style>
     </>

@@ -53,6 +53,20 @@ export function Footer() {
             Writing
           </Link>
           <Link
+            href="/projects"
+            className="footer-nav-link"
+            style={{
+              fontFamily: "var(--font-dm-mono), monospace",
+              fontSize: "10px",
+              fontWeight: 400,
+              textTransform: "uppercase",
+              letterSpacing: "1px",
+              color: "var(--c-muted)",
+            }}
+          >
+            Projects
+          </Link>
+          <Link
             href="/about"
             className="footer-nav-link"
             style={{
@@ -98,7 +112,7 @@ export function Footer() {
             <LinkedInIcon width={18} height={18} />
           </a>
           <a
-            href="https://github.com/debopriyadebroy"
+            href="https://github.com/DDR13GIT"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-icon"

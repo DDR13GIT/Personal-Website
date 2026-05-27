@@ -167,59 +167,6 @@ export default function AboutPage() {
             .
           </p>
 
-          {/* User manual card */}
-          <div
-            style={{
-              backgroundColor: "var(--c-card-alt)",
-              border: "1px solid var(--c-divider)",
-              padding: "20px 24px 24px",
-              marginBottom: "56px",
-            }}
-          >
-            <div
-              style={{
-                fontFamily: "var(--font-lora), serif",
-                fontSize: "16px",
-                fontWeight: 600,
-                lineHeight: "26.4px",
-                color: "var(--c-text)",
-                marginBottom: "8px",
-              }}
-            >
-              User manual
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "15px",
-                fontWeight: 400,
-                lineHeight: "24.75px",
-                color: "var(--c-secondary)",
-                marginBottom: "16px",
-              }}
-            >
-              A playbook on how I think, work, and collaborate — my strengths, blind spots, and the
-              principles I try to{" "}
-              <Link href="/manual" className="inline-link">
-                operate by
-              </Link>
-              .
-            </div>
-            <a
-              href="/manual"
-              className="arrow-link"
-              style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "15px",
-                fontWeight: 400,
-                lineHeight: "24.75px",
-                color: "var(--c-link)",
-                textDecoration: "none",
-              }}
-            >
-              More about me →
-            </a>
-          </div>
         </main>
 
         <Footer />

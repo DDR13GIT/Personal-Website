@@ -5,9 +5,9 @@ excerpt: "An in-depth look at how PostgreSQL stores JSON vs. JSONB on disk, and 
 tag: "PostgreSQL"
 ---
 
-# Why Developers Always Choose JSONB Over JSON
 
-**TL;DR:** Use `JSONB`. Always. `JSON` stores data as plain text and re-parses it from scratch on every query. `JSONB` converts it into a binary format with sorted keys at write time so querying is basically a direct memory jump — plus, only `JSONB` supports GIN indexes.
+**TL;DR:** 
+Use `JSONB`. Always. `JSON` stores data as plain text and re-parses it from scratch on every query. `JSONB` converts it into a binary format with sorted keys at write time so querying is basically a direct memory jump — plus, only `JSONB` supports GIN indexes.
 
 ---
 

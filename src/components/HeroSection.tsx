@@ -4,6 +4,70 @@ import { EmailIcon, LinkedInIcon, GitHubIcon } from "./icons";
 export function HeroSection() {
   return (
     <>
+      {/* Mobile photo (centered above text) */}
+      <div className="photo-wrap-mobile" style={{ position: "relative", marginBottom: "24px" }}>
+        {/* Shadow behind card */}
+        <div
+          style={{
+            position: "absolute",
+            top: "4px",
+            left: "50%",
+            transform: "translateX(-50%) rotate(-2deg)",
+            zIndex: 1,
+            width: "106px",
+            height: "156.9px",
+            background: "var(--c-shadow-bg)",
+          }}
+        />
+        {/* Tape */}
+        <div
+          style={{
+            position: "absolute",
+            top: "-5px",
+            left: "50%",
+            transform: "translateX(-50%) translateX(-14px) rotate(-1deg)",
+            zIndex: 3,
+            width: "28px",
+            height: "9px",
+            background: "var(--c-tape)",
+          }}
+        />
+        {/* Polaroid card */}
+        <div
+          style={{
+            position: "relative",
+            zIndex: 2,
+            width: "120px",
+            background: "var(--c-card)",
+            padding: "5px 5px 18px",
+            boxShadow: "var(--c-shadow-card)",
+            transform: "rotate(-2deg)",
+            margin: "0 auto",
+          }}
+        >
+          <Image
+            src="/images/debopriya/my_pic.webp"
+            alt="Debopriya Deb Roy"
+            width={110}
+            height={132}
+            style={{ display: "block", width: "110px", height: "132px", objectFit: "cover" }}
+          />
+          <div
+            style={{
+              fontFamily: "var(--font-lora), serif",
+              fontSize: "9px",
+              fontStyle: "italic",
+              color: "var(--c-muted)",
+              textAlign: "center",
+              paddingTop: "4px",
+              width: "110px",
+            }}
+          >
+            Dhaka
+          </div>
+        </div>
+      </div>
+
       <div
         className="hero-grid"
         style={{
@@ -110,7 +174,7 @@ export function HeroSection() {
               <span>LinkedIn</span>
             </a>
             <a
-              href="https://github.com/debopriyadebroy"
+              href="https://github.com/DDR13GIT"
               target="_blank"
               rel="noopener noreferrer"
               className="hero-social-link"
@@ -200,11 +264,16 @@ export function HeroSection() {
         .hero-social-link {
           transition: color 180ms var(--ease-out-expo), transform 200ms var(--ease-out-expo);
         }
-        .hero-social-link:hover {
-          color: var(--c-text) !important;
-          transform: translateX(2px);
+        @media (hover: hover) and (pointer: fine) {
+          .hero-social-link:hover {
+            color: var(--c-text) !important;
+            transform: translateX(2px);
+          }
         }
         @media (max-width: 767px) {
+          .photo-wrap-mobile {
+            display: block !important;
+          }
           .hero-grid {
             display: flex !important;
             flex-direction: column !important;
@@ -212,6 +281,11 @@ export function HeroSection() {
             margin-bottom: 56px !important;
           }
           .photo-wrap {
+            display: none !important;
+          }
+        }
+        @media (min-width: 768px) {
+          .photo-wrap-mobile {
             display: none !important;
           }
         }

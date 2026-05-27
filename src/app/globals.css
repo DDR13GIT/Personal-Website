@@ -108,8 +108,10 @@
   display: inline-block;
   transition: transform 200ms var(--ease-out-expo);
 }
-.arrow-link:hover {
-  transform: translateX(4px);
+@media (hover: hover) and (pointer: fine) {
+  .arrow-link:hover {
+    transform: translateX(4px);
+  }
 }
 
 /* Post card: title shifts to link color when the row is hovered */
@@ -124,9 +126,11 @@
 .footer-icon {
   transition: color 180ms var(--ease-out-expo), transform 200ms var(--ease-out-expo);
 }
-.footer-icon:hover {
-  color: var(--c-text) !important;
-  transform: scale(1.15);
+@media (hover: hover) and (pointer: fine) {
+  .footer-icon:hover {
+    color: var(--c-text) !important;
+    transform: scale(1.1);
+  }
 }
 
 /* Footer text nav links — underline sweeps in */
@@ -146,12 +150,14 @@
   transform-origin: right center;
   transition: transform 220ms var(--ease-out-expo);
 }
-.footer-nav-link:hover {
-  color: var(--c-text) !important;
-}
-.footer-nav-link:hover::after {
-  transform: scaleX(1);
-  transform-origin: left center;
+@media (hover: hover) and (pointer: fine) {
+  .footer-nav-link:hover {
+    color: var(--c-text) !important;
+  }
+  .footer-nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
