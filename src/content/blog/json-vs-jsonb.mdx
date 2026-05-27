@@ -1,0 +1,160 @@
+---
+title: "Why Developers Always Choose JSONB Over JSON"
+date: "2026-05-22"
+excerpt: "An in-depth look at how PostgreSQL stores JSON vs. JSONB on disk, and why JSONB's binary format makes querying super fast."
+tag: "PostgreSQL"
+---
+
+# Why Developers Always Choose JSONB Over JSON
+
+**TL;DR:** Use `JSONB`. Always. `JSON` stores data as plain text and re-parses it from scratch on every query. `JSONB` converts it into a binary format with sorted keys at write time so querying is basically a direct memory jump — plus, only `JSONB` supports GIN indexes.
+
+---
+
+When storing JSON objects in PostgreSQL, we are faced with two choices: `JSON` or `JSONB`. While both accept valid JSON data, production systems almost universally prefer `JSONB`.
+
+The core trade-off comes down to this: **storing in a `JSON` column is faster but querying from it is slower. Storing in a `JSONB` column is slightly slower at write time, but querying from it is super fast.**
+
+Let's dive deep into how both formats work under the hood to understand why.
+
+---
+
+## The Baseline Example
+
+Throughout this breakdown, we will use this standard JSON object:
+
+```json
+{"id": 42, "active": true, "name": "Debopriya"}
+```
+
+---
+
+## 1. JSON Columns (Plain Text Storage)
+
+When you insert data into a standard `JSON` column, PostgreSQL runs a quick syntax validation check and then saves it **exactly as it is** — including whitespace, indentation, and original formatting — as raw plain text.
+
+### The Retrieval Nightmare
+
+Because it is stored as raw text, PostgreSQL has to parse the text character by character for **every single row** returned during a query.
+
+If you query for the `name` field, Postgres must execute the following sequence:
+
+1. **Locate:** Reads the row from disk and locates the plain text JSON block.
+2. **Initialize:** Boots up its internal text parser to read the string sequentially from left to right.
+3. **Scan Object:** Reads the opening `{` and notes that an object has started.
+4. **Evaluate Key 1:** Reads the characters `"`, `i`, `d`, `"`. It compares this to your target key (`"name"`). No match.
+5. **Skip Value 1:** Skips the colon `:` and the value `42`.
+6. **Evaluate Key 2:** Reads the comma `,` and scans: `"`, `a`, `c`, `t`, `i`, `v`, `e`, `"`. No match.
+7. **Skip Value 2:** Skips the colon `:` and the value `true`.
+8. **Evaluate Key 3:** Reads the next comma `,` and scans: `"`, `n`, `a`, `m`, `e`, `"`. **Match found!**
+9. **Extract:** Looks past the colon `:`, isolates the boundaries of the string `"Debopriya"`, allocates memory for it, and returns it.
+
+> **The Scale Problem:** If your target key lives at the very end of a massive 10MB JSON string, Postgres wastes massive amounts of CPU cycles reading and parsing megabytes of unrelated text just to find it. There is no pre-built structure to navigate; it is a full-text scan every time.
+
+---
+
+## 2. JSONB Columns (Deconstructed Binary)
+
+`JSONB` completely reimagines write-time storage. When a JSON object is received, Postgres strips all syntax characters (whitespace, quotes, braces, colons) and transforms the keys and values into a custom, normalized binary format.
+
+During this write phase, Postgres optimizes the payload:
+
+* **Removes Duplicates:** If duplicate keys exist, only the last one is kept.
+* **Sorts Keys:** Keys are sorted by **length first**, and alphabetically (by character code) in case of a tie.
+
+For our example object, the sorted key order becomes:
+
+1. `id` (2 bytes)
+2. `name` (4 bytes)
+3. `active` (6 bytes)
+
+### How JSONB Is Laid Out on Disk
+
+On disk, the binary object is divided into three consecutive regions:
+
+```text
+| Global Header (4B) | JEntry Metadata Array (4B per element) | Raw Data Region (Contiguous) |
+```
+
+#### A. The Global Header (JsonbContainer)
+
+The Global Header is exactly **4 bytes (32 bits)** in size. It uses a technique called **Bitmasking** — dividing a single binary number into "slots" to store multiple data points side-by-side.
+
+* **Bits 0 to 27 (Lower 28 bits):** The *Element Counter*. Stores the total number of keys (3 in our example, represented as `0000000000000000000000000011`).
+* **Bits 28 to 31 (Upper 4 bits):** The *Type Flag*. Stores whether the JSON is an Object (`0x80000000`), Array (`0x40000000`), or Scalar (`0x20000000`).
+
+Since our example is an object, the final header looks like this (counting bits right-to-left):
+
+```text
+0001 0000000000000000000000000011
+└─── └───────────────────────────
+Type            Element Counter (3)
+(Object)
+```
+
+#### B. The JEntry Area (The Metadata Array)
+
+This acts as the document's **Table of Contents**. It consists of an array of 4-byte (32-bit) integers called `JEntry` headers. Each entry points to a specific key or value using bitmasking:
+
+* **Lower 29 bits:** The **End Offset** (where this item ends in the raw data region).
+* **Upper 3 bits:** The **Type Flag** (String, Numeric, Boolean, etc.).
+
+Our example has 3 keys and 3 values, resulting in **6 JEntries** arranged sequentially:
+
+| Entry | Item | Type Flag | End Offset (Decimal) | Combined Hex Result |
+| --- | --- | --- | --- | --- |
+| **JEntry 1** | Key: `"id"` | String (`0x00000000`) | 2 | `0x00000002` |
+| **JEntry 2** | Key: `"name"` | String (`0x00000000`) | 6 *(2 + 4B length)* | `0x00000006` |
+| **JEntry 3** | Key: `"active"` | String (`0x00000000`) | 12 *(6 + 6B length)* | `0x0000000C` |
+| **JEntry 4** | Value: `42` | Numeric (`0x10000000`) | 16 *(12 + 4B length)* | `0x1000010` |
+| **JEntry 5** | Value: `"Debopriya"` | String (`0x00000000`) | 25 *(16 + 9B length)* | `0x00000019` |
+| **JEntry 6** | Value: `true` | Boolean True (`0x20000000`) | 25 *(0B length)* | `0x20000019` |
+
+> **Why track the End Offset?** By storing where an element ends, Postgres can easily calculate any element's exact length by subtracting the previous entry's end offset from the current one ($Length = Offset_{current} - Offset_{previous}$).
+
+#### C. The Raw Data Region
+
+The remaining space holds the raw keys and values packed into a dense, continuous byte stream. There are no structural characters like quotes, colons, or spacing.
+
+```text
+[ i ][ d ][ n ][ a ][ m ][ e ][ a ][ c ][ t ][ i ][ v ][ e ][ 42 as numeric bytes ][ D ][ e ][ b ][ o ][ p ][ r ][ i ][ y ][ a ]
+```
+
+*(Note: Booleans like `true` take up **0 bytes** in this region because their exact value is entirely handled by the `JEntry` type flag header!)*
+
+---
+
+## 3. Retrieval Query Comparison
+
+When you run a query to fetch the value for `name` (`->> 'name'`), look at the radical difference in execution efficiency:
+
+### The JSONB Retrieval Workflow
+
+Because the data structure is mathematical, Postgres completely avoids raw text processing and uses **direct memory navigation**:
+
+```text
+[Global Header] ➔ [Binary Search JEntries] ➔ [Direct Pointer Jump] ➔ [Extract Value]
+```
+
+1. **Read Header:** Postgres checks the 4-byte Global Header and instantly sees it's dealing with an Object containing 3 keys.
+2. **Isolate Keys:** It isolates the first 3 lines of the Table of Contents (`JEntry 1`, `2`, and `3`).
+3. **Binary Search:** It performs a lightning-fast binary search directly on these keys. It calculates the text location of the middle key (`JEntry 2`), reads its raw bytes (`"name"`), and finds an instant match at **Key Index 2**.
+4. **Map to Value:** Because Key Index 2 matched, Postgres mathematically knows its corresponding value must live at Value Index 2 (which translates to the 5th entry overall: `JEntry 5`).
+5. **Read Metadata:** It looks at `JEntry 5`. The flag indicates a String with an end offset of `25`.
+6. **Calculate Boundaries:** It looks at the previous entry's offset (`16`) and runs a quick calculation: $25 - 16 = 9\text{ bytes}$.
+7. **Instant Jump:** It advances its memory pointer straight to offset `16` in the raw data section, grabs exactly 9 bytes (`Debopriya`), and hands it back.
+
+> **The Performance Winner:** Postgres never reads, parses, or processes a single byte of data belonging to `id` or `active`. It calculates the exact location in memory and leaps right to it.
+
+---
+
+## The Ultimate Decider: GIN Index Support
+
+Beyond the raw CPU performance gains of memory jumps, `JSONB` brings one final, definitive feature to production apps: **Generalized Inverted Index (GIN) support**.
+
+* **`JSON` columns cannot be indexed with a GIN index.** Finding a nested key always requires a full table scan.
+* **`JSONB` fully supports GIN indexing.** A GIN index maps every nested key and value across your entire table. This allows Postgres to instantly execute lookups like *"find all rows where this JSON contains the key 'active'"* without scanning a single unmatching row.
+
+## Conclusion
+
+While `JSON` retains a tiny edge in raw write speeds (since it skips parsing and sorting), `JSONB` dominates where it matters most: **read and query performance**. By sacrificing a few CPU cycles at write time to build a structured binary layout, `JSONB` saves massive amounts of memory, indexing overhead, and processing power down the road.
