@@ -3,7 +3,7 @@ import { EmailIcon, LinkedInIcon, GitHubIcon } from "./icons";
 
 export function Footer() {
   return (
-    <footer
+    <footer className="footer-wrapper"
       style={{
         display: "flex",
         justifyContent: "space-between",
@@ -16,6 +16,7 @@ export function Footer() {
       {/* Copyright */}
       <Link
         href="/"
+        className="footer-copyright"
         style={{
           display: "flex",
           flexDirection: "row",
@@ -35,9 +36,9 @@ export function Footer() {
       </Link>
 
       {/* Right side */}
-      <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+      <div className="footer-right" style={{ display: "flex", alignItems: "center", gap: "16px" }}>
         {/* Nav links */}
-        <nav style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+        <nav className="footer-nav" style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           <Link
             href="/blog"
             className="footer-nav-link"
@@ -83,7 +84,7 @@ export function Footer() {
         </nav>
 
         {/* Divider */}
-        <div
+        <div className="footer-divider"
           style={{
             width: "1px",
             height: "14px",
@@ -92,7 +93,7 @@ export function Footer() {
         />
 
         {/* Social icons */}
-        <nav style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+        <nav className="footer-socials" style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           <a
             href="mailto:ddroy13@gmail.com"
             className="footer-icon"
@@ -123,6 +124,44 @@ export function Footer() {
           </a>
         </nav>
       </div>
+
+      <style>{`
+        @media (max-width: 767px) {
+          .footer-wrapper {
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            text-align: center;
+          }
+          .footer-copyright {
+            flex-direction: column;
+            gap: 2px;
+            order: 1;
+          }
+          .footer-right {
+            flex-direction: column;
+            gap: 16px;
+            order: 2;
+            width: 100%;
+          }
+          .footer-nav {
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+          }
+          .footer-nav-link {
+            display: block;
+          }
+          .footer-divider {
+            display: none;
+          }
+          .footer-socials {
+            width: 100%;
+            justify-content: center;
+            gap: 20px;
+          }
+        }
+      `}</style>
     </footer>
   );
 }

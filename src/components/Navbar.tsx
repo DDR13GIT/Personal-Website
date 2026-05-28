@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { MoonIcon, SunIcon } from "./icons";
 import { useTheme } from "./ThemeProvider";
 
 export function Navbar() {
   const pathname = usePathname();
   const { theme, toggle } = useTheme();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   function linkColor(href: string) {
     if (href === "/blog" && pathname.startsWith("/blog")) return "var(--c-link)";
@@ -42,7 +44,8 @@ export function Navbar() {
           Debopriya Deb Roy
         </Link>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
+        {/* Desktop nav */}
+        <div className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "24px" }}>
           <Link
             href="/blog"
             style={{
@@ -86,7 +89,7 @@ export function Navbar() {
             onClick={toggle}
             aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             className="theme-toggle"
-          style={{
+            style={{
               width: "15px",
               height: "15px",
               background: "transparent",
@@ -106,7 +109,111 @@ export function Navbar() {
             )}
           </button>
         </div>
+
+        {/* Mobile: hamburger + theme toggle */}
+        <div className="mobile-controls" style={{ display: "none", alignItems: "center", gap: "12px" }}>
+          <button
+            onClick={toggle}
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            className="theme-toggle"
+            style={{
+              width: "15px",
+              height: "15px",
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--c-muted)",
+              padding: 0,
+            }}
+          >
+            {theme === "dark" ? (
+              <SunIcon width={15} height={15} />
+            ) : (
+              <MoonIcon width={15} height={15} />
+            )}
+          </button>
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+            className="hamburger"
+            style={{
+              width: "20px",
+              height: "20px",
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-around",
+              color: "var(--c-text)",
+              padding: 0,
+            }}
+          >
+            <span style={{ width: "100%", height: "2px", background: "currentColor" }} />
+            <span style={{ width: "100%", height: "2px", background: "currentColor" }} />
+            <span style={{ width: "100%", height: "2px", background: "currentColor" }} />
+          </button>
+        </div>
       </nav>
+
+      {/* Mobile menu overlay */}
+      {menuOpen && (
+        <div className="mobile-menu" style={{ display: "none" }}>
+          <Link
+            href="/blog"
+            onClick={() => setMenuOpen(false)}
+            style={{
+              display: "block",
+              padding: "16px 24px",
+              fontFamily: "var(--font-dm-mono), monospace",
+              fontSize: "12px",
+              fontWeight: 400,
+              textTransform: "uppercase",
+              letterSpacing: "1.2px",
+              color: linkColor("/blog"),
+              borderBottom: "1px solid var(--c-divider)",
+            }}
+          >
+            Writing
+          </Link>
+          <Link
+            href="/projects"
+            onClick={() => setMenuOpen(false)}
+            style={{
+              display: "block",
+              padding: "16px 24px",
+              fontFamily: "var(--font-dm-mono), monospace",
+              fontSize: "12px",
+              fontWeight: 400,
+              textTransform: "uppercase",
+              letterSpacing: "1.2px",
+              color: linkColor("/projects"),
+              borderBottom: "1px solid var(--c-divider)",
+            }}
+          >
+            Projects
+          </Link>
+          <Link
+            href="/about"
+            onClick={() => setMenuOpen(false)}
+            style={{
+              display: "block",
+              padding: "16px 24px",
+              fontFamily: "var(--font-dm-mono), monospace",
+              fontSize: "12px",
+              fontWeight: 400,
+              textTransform: "uppercase",
+              letterSpacing: "1.2px",
+              color: linkColor("/about"),
+            }}
+          >
+            About
+          </Link>
+        </div>
+      )}
 
       <style>{`
         .main-nav a {
@@ -144,7 +251,21 @@ export function Navbar() {
         @media (max-width: 767px) {
           .main-nav {
             margin: 0 !important;
-            padding: 28px 24px 20px !important;
+            padding: 20px 24px !important;
+          }
+          .desktop-nav {
+            display: none !important;
+          }
+          .mobile-controls {
+            display: flex !important;
+          }
+          .mobile-menu {
+            display: block !important;
+            background: var(--c-bg);
+            border-bottom: 1px solid var(--c-border);
+            padding: 0;
+            margin: 0 -24px;
+            width: calc(100% + 48px);
           }
         }
       `}</style>
