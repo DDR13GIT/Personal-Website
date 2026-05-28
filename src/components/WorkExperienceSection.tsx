@@ -67,6 +67,7 @@ export function WorkExperienceSection() {
         {experiences.map((exp, idx) => (
           <div
             key={exp.company}
+            className="work-exp-row"
             style={{
               display: "grid",
               gridTemplateColumns: "120px 36px 1fr",
@@ -132,7 +133,7 @@ export function WorkExperienceSection() {
               {/* Roles */}
               <div style={{ marginBottom: "12px" }}>
                 {exp.roles.map((role, i) => (
-                  <div key={i} style={{ marginBottom: i === 0 ? "6px" : 0 }}>
+                  <div key={i} style={{ marginBottom: i < exp.roles.length - 1 ? "6px" : 0 }}>
                     <span
                       style={{
                         fontFamily: "var(--font-lora), serif",
@@ -175,6 +176,14 @@ export function WorkExperienceSection() {
           </div>
         ))}
       </div>
+
+      <style>{`
+        @media (max-width: 767px) {
+          .work-exp-row {
+            grid-template-columns: 90px 28px 1fr !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

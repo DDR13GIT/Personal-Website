@@ -100,6 +100,7 @@ export function Navbar() {
               justifyContent: "center",
               color: "var(--c-muted)",
               padding: 0,
+              touchAction: "manipulation",
             }}
           >
             {theme === "dark" ? (
@@ -111,14 +112,14 @@ export function Navbar() {
         </div>
 
         {/* Mobile: hamburger + theme toggle */}
-        <div className="mobile-controls" style={{ display: "none", alignItems: "center", gap: "12px" }}>
+        <div className="mobile-controls" style={{ display: "none", alignItems: "center", gap: "4px" }}>
           <button
             onClick={toggle}
             aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             className="theme-toggle"
             style={{
-              width: "15px",
-              height: "15px",
+              width: "44px",
+              height: "44px",
               background: "transparent",
               border: "none",
               cursor: "pointer",
@@ -127,6 +128,7 @@ export function Navbar() {
               justifyContent: "center",
               color: "var(--c-muted)",
               padding: 0,
+              touchAction: "manipulation",
             }}
           >
             {theme === "dark" ? (
@@ -140,21 +142,24 @@ export function Navbar() {
             aria-label="Toggle menu"
             className="hamburger"
             style={{
-              width: "20px",
-              height: "20px",
+              width: "44px",
+              height: "44px",
               background: "transparent",
               border: "none",
               cursor: "pointer",
               display: "flex",
               flexDirection: "column",
-              justifyContent: "space-around",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "5px",
               color: "var(--c-text)",
               padding: 0,
+              touchAction: "manipulation",
             }}
           >
-            <span style={{ width: "100%", height: "2px", background: "currentColor" }} />
-            <span style={{ width: "100%", height: "2px", background: "currentColor" }} />
-            <span style={{ width: "100%", height: "2px", background: "currentColor" }} />
+            <span style={{ width: "20px", height: "2px", background: "currentColor" }} />
+            <span style={{ width: "20px", height: "2px", background: "currentColor" }} />
+            <span style={{ width: "20px", height: "2px", background: "currentColor" }} />
           </button>
         </div>
       </nav>
@@ -262,10 +267,9 @@ export function Navbar() {
           .mobile-menu {
             display: block !important;
             background: var(--c-bg);
+            border-top: 1px solid var(--c-border);
             border-bottom: 1px solid var(--c-border);
             padding: 0;
-            margin: 0 -24px;
-            width: calc(100% + 48px);
           }
         }
       `}</style>
