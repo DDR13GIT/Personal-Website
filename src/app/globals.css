@@ -1,5 +1,13 @@
 @import "tailwindcss";
 @import "katex/dist/katex.min.css";
+
+@font-face {
+  font-family: "BelmonteBallpoint";
+  src: url("/fonts/BelmonteBallpointTrial-Cursive.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 @plugin "@tailwindcss/typography";
 
 @theme inline {
