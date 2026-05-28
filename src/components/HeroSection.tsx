@@ -91,7 +91,7 @@ export function HeroSection() {
               margin: "0 0 16px",
             }}
           >
-            Hey, I&apos;m <span style={{ fontFamily: "BelmonteBallpoint, cursive" }}>Debopriya</span>. I build scalable systems and write things.
+             <span style={{ fontFamily: "Belmonte Ballpoint Cursive" }}>Hey, I&apos;m Debopriya</span>. <br></br>I build scalable systems and write things.
           </h1>
 
           <p
