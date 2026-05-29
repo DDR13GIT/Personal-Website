@@ -43,6 +43,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        {/* Runs synchronously in <head> before paint so the correct theme is
+            applied with no flash. It executes from the server-rendered HTML;
+            it intentionally does not run on the client. */}
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`,
