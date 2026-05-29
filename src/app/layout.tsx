@@ -43,12 +43,16 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Runs synchronously in <head> before paint so the correct theme is
-            applied with no flash. It executes from the server-rendered HTML;
-            it intentionally does not run on the client. */}
+        {/* Runs synchronously in <head> from the server-rendered HTML, before
+            paint and before React hydrates. It (1) applies the saved/preferred
+            theme with no flash, and (2) attaches a delegated click listener so
+            tapping the toggle works on the very first tap — even before
+            hydration wires up React's handlers. React only reflects the
+            data-theme attribute; it never owns the toggle, so there is no
+            double-fire. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`,
+            __html: `(function(){var d=document.documentElement;try{var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');d.setAttribute('data-theme',t);}catch(e){}try{document.addEventListener('click',function(e){var el=e.target&&e.target.closest?e.target.closest('[data-theme-toggle]'):null;if(!el)return;var next=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',next);try{localStorage.setItem('theme',next);}catch(e2){}});}catch(e3){}})();`,
           }}
         />
       </head>

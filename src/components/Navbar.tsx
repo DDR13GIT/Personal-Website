@@ -8,7 +8,7 @@ import { useTheme } from "./ThemeProvider";
 
 export function Navbar() {
   const pathname = usePathname();
-  const { theme, toggle } = useTheme();
+  const theme = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
 
   function linkColor(href: string) {
@@ -86,7 +86,8 @@ export function Navbar() {
             About
           </Link>
           <button
-            onClick={toggle}
+            type="button"
+            data-theme-toggle
             aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             className="theme-toggle"
             style={{
@@ -114,7 +115,8 @@ export function Navbar() {
         {/* Mobile: hamburger + theme toggle */}
         <div className="mobile-controls" style={{ display: "none", alignItems: "center", gap: "4px" }}>
           <button
-            onClick={toggle}
+            type="button"
+            data-theme-toggle
             aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             className="theme-toggle"
             style={{
