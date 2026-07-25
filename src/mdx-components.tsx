@@ -74,6 +74,25 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {...props}
       />
     ),
+    // Dimensions are unknown at author time (images dropped in from
+    // Obsidian), so next/image's required width/height don't fit — a native
+    // <img> stays responsive without per-image sizing.
+    img: ({ alt, ...props }: ComponentPropsWithoutRef<"img">) => (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        alt={alt ?? ""}
+        loading="lazy"
+        decoding="async"
+        style={{
+          display: "block",
+          width: "100%",
+          height: "auto",
+          borderRadius: "8px",
+          marginBottom: "24px",
+        }}
+        {...props}
+      />
+    ),
     a: (props: ComponentPropsWithoutRef<"a">) => (
       <a
         className="mdx-link"
