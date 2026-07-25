@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lora, DM_Sans, DM_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import "./globals.css";
 
 const lora = Lora({
@@ -57,7 +58,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <SmoothScroll>{children}</SmoothScroll>
+        </ThemeProvider>
       </body>
     </html>
   );

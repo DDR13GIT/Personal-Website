@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { BlogTimeline } from "@/components/BlogTimeline";
+import { Reveal } from "@/components/Reveal";
 import { getAllPosts, getAllTags } from "@/lib/posts";
 import { MediumIcon } from "@/components/icons";
 
@@ -22,6 +23,7 @@ export default function BlogPage() {
         }}
       >
         <main style={{ flex: 1 }}>
+          <Reveal>
           <div style={{ marginBottom: "0" }}>
             <h1
               style={{
@@ -104,6 +106,7 @@ export default function BlogPage() {
               .
             </p>
           </div>
+          </Reveal>
 
           <BlogTimeline posts={posts} filters={filters} />
 

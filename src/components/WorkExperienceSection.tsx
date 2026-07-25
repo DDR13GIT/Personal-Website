@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { RevealGroup } from "./RevealGroup";
 
 export interface WorkExperience {
   company: string;
@@ -124,6 +125,7 @@ export function WorkExperienceSection() {
       </div>
 
       {/* Timeline */}
+      <RevealGroup selector=".work-exp-row">
       <div style={{ display: "flex", flexDirection: "column" }}>
         {experiences.map((exp, idx) => {
           const isFirst = idx === 0;
@@ -255,6 +257,7 @@ export function WorkExperienceSection() {
           );
         })}
       </div>
+      </RevealGroup>
 
       <style>{`
         @media (max-width: 767px) {

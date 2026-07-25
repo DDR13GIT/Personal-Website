@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useMemo } from "react";
 import type { PostMeta } from "@/lib/posts";
+import { RevealGroup } from "./RevealGroup";
 
 interface MonthGroup {
   month: string;
@@ -70,6 +71,7 @@ export function BlogTimeline({ posts, filters }: { posts: PostMeta[]; filters: s
       </div>
 
       {/* Timeline */}
+      <RevealGroup key={activeFilter} selector="a">
       <div style={{ display: "flex", flexDirection: "column" }}>
         {monthGroups.length === 0 && (
           <p
@@ -214,6 +216,7 @@ export function BlogTimeline({ posts, filters }: { posts: PostMeta[]; filters: s
           </div>
         ))}
       </div>
+      </RevealGroup>
 
       <style>{`
         .filter-btn {

@@ -1,11 +1,13 @@
 import Image from "next/image";
 import { EmailIcon, LinkedInIcon, GitHubIcon } from "./icons";
+import { Reveal } from "./Reveal";
 
 export function HeroSection() {
   return (
     <>
       {/* Mobile photo (centered above text) */}
-      <div className="photo-wrap-mobile" style={{ position: "relative", marginBottom: "24px" }}>
+      <Reveal className="photo-wrap-mobile" delay={0.05}>
+      <div style={{ position: "relative", marginBottom: "24px" }}>
         {/* Shadow behind card */}
         <div
           style={{
@@ -67,6 +69,7 @@ export function HeroSection() {
           </div>
         </div>
       </div>
+      </Reveal>
 
       <div
         className="hero-grid"
@@ -79,7 +82,7 @@ export function HeroSection() {
         }}
       >
         {/* Left: copy */}
-        <div className="hero-copy">
+        <Reveal className="hero-copy">
           <h1
             style={{
               fontFamily: "var(--font-lora), serif",
@@ -194,10 +197,11 @@ export function HeroSection() {
               <span>GitHub</span>
             </a>
           </nav>
-        </div>
+        </Reveal>
 
         {/* Right: polaroid photo */}
-        <div className="photo-wrap" style={{ position: "relative" }}>
+        <Reveal className="photo-wrap" delay={0.1}>
+        <div style={{ position: "relative" }}>
           {/* Shadow behind card */}
           <div
             style={{
@@ -258,6 +262,7 @@ export function HeroSection() {
             </div>
           </div>
         </div>
+        </Reveal>
       </div>
 
       <style>{`

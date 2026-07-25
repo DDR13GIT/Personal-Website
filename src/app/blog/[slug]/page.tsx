@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { RevealGroup } from "@/components/RevealGroup";
 import { getPostSlugs } from "@/lib/posts";
 
 export async function generateStaticParams() {
@@ -131,9 +132,9 @@ export default async function BlogPostPage({ params }: Props) {
             </header>
 
             {/* Post body */}
-            <div className="mdx-prose">
+            <RevealGroup selector=":scope > *" className="mdx-prose">
               <Post />
-            </div>
+            </RevealGroup>
           </article>
 
           <div style={{ height: "1px", backgroundColor: "var(--c-border)", margin: "48px 0 40px" }} />

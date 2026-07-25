@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Reveal } from "@/components/Reveal";
+import { RevealGroup } from "@/components/RevealGroup";
 
 export const metadata = {
   title: "About | Debopriya Deb Roy",
@@ -18,6 +20,7 @@ export default function AboutPage() {
         }}
       >
         <main>
+          <Reveal>
           <h1
             style={{
               fontFamily: "var(--font-lora), serif",
@@ -45,7 +48,9 @@ export default function AboutPage() {
           >
             Welcome to my corner of the internet.
           </p>
+          </Reveal>
 
+          <RevealGroup selector="p">
           <p
             style={{
               fontFamily: "var(--font-dm-sans), sans-serif",
@@ -166,6 +171,7 @@ export default function AboutPage() {
             </a>
             .
           </p>
+          </RevealGroup>
 
         </main>
 

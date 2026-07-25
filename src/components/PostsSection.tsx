@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getRecentPosts } from "@/lib/posts";
+import { RevealGroup } from "./RevealGroup";
 
 export function PostsSection() {
   const posts = getRecentPosts(3);
@@ -43,6 +44,7 @@ export function PostsSection() {
       </div>
 
       {/* Post list */}
+      <RevealGroup selector="li">
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
         {posts.map((post) => (
           <li key={post.slug}>
@@ -139,6 +141,7 @@ export function PostsSection() {
           </li>
         ))}
       </ul>
+      </RevealGroup>
     </div>
   );
 }

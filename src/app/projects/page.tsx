@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Reveal } from "@/components/Reveal";
 
 export const metadata = {
   title: "Projects | Debopriya Deb Roy",
@@ -17,6 +18,7 @@ export default function ProjectsPage() {
         }}
       >
         <main>
+          <Reveal>
           <h1
             style={{
               fontFamily: "var(--font-lora), serif",
@@ -44,6 +46,7 @@ export default function ProjectsPage() {
           >
             Work in progress.
           </p>
+          </Reveal>
         </main>
 
         <Footer />
