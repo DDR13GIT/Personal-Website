@@ -15,13 +15,18 @@ const strokeBase = {
 
 function CatIcon(props: IconProps) {
   return (
-    <svg {...strokeBase} {...props}>
-      <path d="M5 10 6.5 4.5 9.5 8" />
-      <path d="M19 10 17.5 4.5 14.5 8" />
-      <path d="M5 10.5c0-3.6 3.1-6.3 7-6.3s7 2.7 7 6.3c0 5-3.1 9-7 9s-7-4-7-9Z" />
-      <circle cx="9.6" cy="11.2" r=".55" fill="currentColor" stroke="none" />
-      <circle cx="14.4" cy="11.2" r=".55" fill="currentColor" stroke="none" />
-      <path d="M10.6 13.6c.8.6 2 .6 2.8 0" />
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      stroke="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <polygon points="6.5,9.5 9.5,9.5 6.7,3.2" />
+      <polygon points="17.5,9.5 14.5,9.5 17.3,3.2" />
+      <circle cx="12" cy="14" r="7" />
+      <circle cx="9.4" cy="13.4" r="1.05" style={{ fill: "var(--c-bg)" }} />
+      <circle cx="14.6" cy="13.4" r="1.05" style={{ fill: "var(--c-bg)" }} />
     </svg>
   );
 }
@@ -35,17 +40,31 @@ function HeartIcon(props: IconProps) {
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <path d="M12 21s-6.7-4.35-9.4-8.31C.3 9.02 1.6 5.5 5.1 5.06 7 4.82 8.8 5.86 12 8.86c3.2-3 5-4.04 6.9-3.8 3.5.44 4.8 3.96 2.5 7.63C18.7 16.65 12 21 12 21Z" />
+      <path d="M12 21c-4.8-3.2-8-6.9-8-10.5A4.5 4.5 0 0 1 12 6a4.5 4.5 0 0 1 8 4.5C20 14.1 16.8 17.8 12 21Z" />
     </svg>
   );
 }
 
 function QuillIcon(props: IconProps) {
   return (
-    <svg {...strokeBase} {...props}>
-      <path d="M4 20l1-4L15 6l4 4L9 20H4Z" />
-      <path d="M13 8l4 4" />
-      <path d="M4 20l3-1" />
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      stroke="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path d="M4 20l1-4.4L14.6 6.3l3.6 3.6L8.9 19.2 4 20Z" />
+      <path
+        d="M13.2 7.7l3.6 3.6"
+        style={{ stroke: "var(--c-bg)", strokeWidth: 1.4, strokeLinecap: "round" }}
+        fill="none"
+      />
+      <path
+        d="M4 20l3.4-1"
+        style={{ stroke: "var(--c-bg)", strokeWidth: 1.1, strokeLinecap: "round" }}
+        fill="none"
+      />
     </svg>
   );
 }
