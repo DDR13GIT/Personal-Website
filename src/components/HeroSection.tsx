@@ -117,17 +117,7 @@ export function HeroSection() {
               Pathao
             </a>
             , Bangladesh&apos;s leading super app — working on identity verification, real-time
-            features, and developer tooling. I also teach data analysis and test automation
-            engineering at{" "}
-            <a
-              href="https://nexxvali.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-link"
-            >
-              Nexxvali
-            </a>
-            .
+            features, and developer tooling.
           </p>
 
           <nav
