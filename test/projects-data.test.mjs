@@ -7,7 +7,7 @@ test("groups projects into ideas and academic categories in that order", () => {
 
   assert.equal(groups.length, 2);
   assert.equal(groups[0].category, "ideas");
-  assert.equal(groups[0].label, "Ideas I Love to Explore");
+  assert.equal(groups[0].label, "Ideas I Have Tinkered With");
   assert.equal(groups[1].category, "academic");
   assert.equal(groups[1].label, "Academic Projects");
 });

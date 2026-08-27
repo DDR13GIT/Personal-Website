@@ -10,7 +10,7 @@ export interface Project {
 }
 
 export const CATEGORY_LABELS: Record<Project["category"], string> = {
-  ideas: "Ideas I Love to Explore",
+  ideas: "Ideas I Have Tinkered With",
   academic: "Academic Projects",
 };
 

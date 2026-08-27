@@ -1,11 +1,18 @@
 import type { ProjectGroup } from "@/lib/projects";
+import { GitHubIcon } from "./icons";
 import { RevealGroup } from "./RevealGroup";
 
 export function ProjectsList({ groups }: { groups: ProjectGroup[] }) {
   return (
     <>
-      {groups.map((group) => (
-        <section key={group.category} style={{ marginBottom: "48px" }}>
+      {groups.map((group, index) => (
+        <section
+          key={group.category}
+          style={{
+            marginTop: index === 0 ? 0 : "72px",
+            marginBottom: "48px",
+          }}
+        >
           <h2
             style={{
               fontFamily: "var(--font-lora), serif",
@@ -30,40 +37,66 @@ export function ProjectsList({ groups }: { groups: ProjectGroup[] }) {
                     borderBottom: "1px solid var(--c-border)",
                   }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "baseline",
-                      gap: "16px",
-                      marginBottom: "8px",
-                    }}
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-title-link"
+                    style={{ display: "block", textDecoration: "none" }}
                   >
-                    <h3
+                    <div
                       style={{
-                        fontFamily: "var(--font-lora), serif",
-                        fontSize: "17px",
-                        fontWeight: 600,
-                        lineHeight: "22.1px",
-                        color: "var(--c-text)",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "baseline",
+                        gap: "16px",
+                        marginBottom: "6px",
                       }}
                     >
-                      {project.title}
-                    </h3>
+                      <h3
+                        className="project-title"
+                        style={{
+                          fontFamily: "var(--font-lora), serif",
+                          fontSize: "17px",
+                          fontWeight: 600,
+                          lineHeight: "22.1px",
+                          color: "var(--c-text)",
+                        }}
+                      >
+                        {project.title}
+                      </h3>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-dm-mono), monospace",
+                          fontSize: "11px",
+                          fontWeight: 400,
+                          letterSpacing: "0.22px",
+                          color: "var(--c-muted)",
+                          whiteSpace: "nowrap",
+                          flexShrink: 0,
+                        }}
+                      >
+                        {project.year}
+                      </span>
+                    </div>
+
                     <span
+                      className="project-code-link"
                       style={{
-                        fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "11px",
-                        fontWeight: 400,
-                        letterSpacing: "0.22px",
-                        color: "var(--c-muted)",
-                        whiteSpace: "nowrap",
-                        flexShrink: 0,
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        fontFamily: "var(--font-dm-sans), sans-serif",
+                        fontSize: "12px",
+                        fontWeight: 600,
+                        color: "var(--c-link)",
+                        marginBottom: "12px",
                       }}
                     >
-                      {project.year}
+                      <GitHubIcon width={13} height={13} />
+                      View code
                     </span>
-                  </div>
+                  </a>
 
                   <p
                     style={{
@@ -83,7 +116,7 @@ export function ProjectsList({ groups }: { groups: ProjectGroup[] }) {
                       display: "flex",
                       flexWrap: "wrap",
                       gap: "5px",
-                      marginBottom: "14px",
+                      marginBottom: project.liveUrl ? "14px" : 0,
                     }}
                   >
                     {project.stack.map((tech) => (
@@ -105,9 +138,9 @@ export function ProjectsList({ groups }: { groups: ProjectGroup[] }) {
                     ))}
                   </div>
 
-                  <div style={{ display: "flex", gap: "20px" }}>
+                  {project.liveUrl && (
                     <a
-                      href={project.githubUrl}
+                      href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="arrow-link"
@@ -120,33 +153,35 @@ export function ProjectsList({ groups }: { groups: ProjectGroup[] }) {
                         color: "var(--c-secondary)",
                       }}
                     >
-                      View code →
+                      Live →
                     </a>
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="arrow-link"
-                        style={{
-                          fontFamily: "var(--font-dm-sans), sans-serif",
-                          fontSize: "11px",
-                          fontWeight: 400,
-                          textTransform: "uppercase",
-                          letterSpacing: "0.77px",
-                          color: "var(--c-secondary)",
-                        }}
-                      >
-                        Live →
-                      </a>
-                    )}
-                  </div>
+                  )}
                 </article>
               ))}
             </div>
           </RevealGroup>
         </section>
       ))}
+
+      <style>{`
+        .project-title {
+          transition: color 160ms var(--ease-out-expo);
+        }
+        .project-code-link {
+          text-decoration: underline;
+          text-decoration-color: transparent;
+          text-underline-offset: 3px;
+          transition: text-decoration-color 160ms var(--ease-out-expo);
+        }
+        @media (hover: hover) and (pointer: fine) {
+          .project-title-link:hover .project-title {
+            color: var(--c-link) !important;
+          }
+          .project-title-link:hover .project-code-link {
+            text-decoration-color: var(--c-link);
+          }
+        }
+      `}</style>
     </>
   );
 }
