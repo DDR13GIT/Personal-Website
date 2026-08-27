@@ -1,12 +1,16 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
+import { ProjectsList } from "@/components/ProjectsList";
+import { getProjectsByCategory } from "@/lib/projects";
 
 export const metadata = {
   title: "Projects | Debopriya Deb Roy",
 };
 
 export default function ProjectsPage() {
+  const groups = getProjectsByCategory();
+
   return (
     <>
       <Navbar />
@@ -44,9 +48,11 @@ export default function ProjectsPage() {
               margin: "0 0 28px",
             }}
           >
-            Work in progress.
+            Things I&apos;ve built, broken, and learned from.
           </p>
           </Reveal>
+
+          <ProjectsList groups={groups} />
         </main>
 
         <Footer />
