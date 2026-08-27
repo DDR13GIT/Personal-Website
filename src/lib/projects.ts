@@ -52,7 +52,6 @@ const projects: Project[] = [
       "Most compatibility quizzes feel like a personality test or a dating-app gimmick, so I built one that just asks what people actually want to know. Cutush runs 40 questions across eight dimensions and hands back an anonymous code — no accounts, no login, just two people comparing notes honestly.",
     stack: ["Next.js", "TypeScript"],
     githubUrl: "https://github.com/DDR13GIT/cutush",
-    liveUrl: "https://cutush.vercel.app",
     year: "2025",
   },
 
