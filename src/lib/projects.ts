@@ -37,7 +37,7 @@ const projects: Project[] = [
     category: "ideas",
     icon: "cat",
     story:
-      "My cat, Mini, sits on my desk while I code, so I put her on the desktop too. Coompanion is a macOS companion built in Swift that reacts, wanders, and reminds me to take a breath between builds. I'm slowly wiring in AI agent behavior so she can respond to what's actually happening on screen, not just look cute doing it.",
+      "I got the idea from the Windows XP Clipper Character — I thought, why not make something like that for macOS? That's why I took my own approach to bringing my pet cat, Mini, onto my Mac. Now that we have access to different kinds of LLMs and AI agents, I thought, why not mix the two concepts and bring the power of an LLM into this idea to make something cool to interact with? That's why I made Coompanion.",
     stack: ["Swift", "macOS", "AppKit"],
     githubUrl: "https://github.com/DDR13GIT/coompanion",
     year: "2026",
@@ -49,7 +49,7 @@ const projects: Project[] = [
     category: "ideas",
     icon: "heart",
     story:
-      "Most compatibility quizzes feel like a personality test or a dating-app gimmick, so I built one that just asks what people actually want to know. Cutush runs 40 questions across eight dimensions and hands back an anonymous code — no accounts, no login, just two people comparing notes honestly.",
+      "Meeting new people and dating around often comes with struggles we all face. Getting to know someone from scratch and figuring out your similarities and differences is the first thing that comes to mind, and it can be a bit tiring. After the initial interest, there's always a need to know someone better — figuring out which quirks match. Keeping that problem in mind, I made this project.",
     stack: ["Next.js", "TypeScript"],
     githubUrl: "https://github.com/DDR13GIT/cutush",
     year: "2025",
@@ -61,7 +61,7 @@ const projects: Project[] = [
     category: "ideas",
     icon: "quill",
     story:
-      "I kept skimming articles and forgetting them ten minutes later, so I built a Chrome extension that won't let me scroll past a passage until I've summarized it in my own words — a margin-note technique borrowed from Jeffrey Kaplan. Everything runs locally: no accounts, no server, no build step, just something to slow me down on purpose.",
+      'A few days back I saw a YouTube video called "How to Retain Whatever You Have Read." In that video I learned a technique called progressive summarization. I tried it while reading some articles and books and found it a genuinely effective idea, so I thought, why not make it a Chrome extension so other people can benefit from it too?',
     stack: ["JavaScript", "Chrome Extension"],
     githubUrl: "https://github.com/DDR13GIT/marginalia-summarizer",
     year: "2026",
@@ -73,7 +73,7 @@ const projects: Project[] = [
     category: "ideas",
     icon: "signal",
     story:
-      "At Pathao I build real-time WebRTC infrastructure for a living, and I wanted to actually understand the signaling handshake instead of trusting the library to do it for me. So I wrote a signaling server from scratch in Go over raw WebSockets — offer, answer, ICE candidates, the whole exchange, no framework hiding the hard part.",
+      "It's a learning-plus-exploration project for me. At Pathao, while we were building an in-app call feature, we needed to understand the signaling handshake, so I wrote a signaling server from scratch in Go over raw WebSockets — offer, answer, ICE candidates, the whole exchange.",
     stack: ["Go", "WebSocket"],
     githubUrl: "https://github.com/DDR13GIT/signaling-server",
     year: "2024",
@@ -85,7 +85,7 @@ const projects: Project[] = [
     category: "ideas",
     icon: "scale",
     story:
-      "Retrieval-Augmented Generation gets talked about constantly, so I wanted to see what actually breaks when you point it at something dense and unforgiving — Bangladesh's National ICT Act. It's a humble project: chunking, embedding, retrieval, generation, nothing exotic. But working through a real legal text taught me more about RAG's failure modes than any tutorial did.",
+      "This is the first project I explored to learn RAG and how it works. My father is an advocate, so I thought, why not pick the legal domain so I can build something useful for him too? This is a project where I built a whole RAG pipeline that works well, with good accuracy, for a small portion of law sections from Bangladesh.",
     stack: ["Python", "RAG", "LLM"],
     githubUrl: "https://github.com/DDR13GIT/ni-act-rag",
     year: "2026",
@@ -109,7 +109,7 @@ const projects: Project[] = [
     category: "academic",
     icon: "shield",
     story:
-      "During my undergrad at AUST, a classmate and I built Ben-Misog — a benchmark dataset of misogynistic comments in Bengali, along with baseline models to detect them. NLP research in a low-resource language like Bangla means doing a lot of the annotation and evaluation groundwork yourself, and this dataset became the basis of a co-authored research paper I'm still proud of.",
+      "During my undergrad at AUST, a classmate and I built Ben-Misog — a benchmark dataset of misogynistic comments in Bengali, along with baseline models to detect them.",
     stack: ["NLP", "Bangla", "Research"],
     githubUrl: "https://github.com/DDR13GIT/Ben-Misog",
     year: "2023",
@@ -121,7 +121,7 @@ const projects: Project[] = [
     category: "academic",
     icon: "graduation-cap",
     story:
-      "For a database systems course, I built a full university management system in Java and JavaFX — student records, admin controls, the works — backed by a properly normalized schema instead of the flat-file shortcuts most student projects take. It's picked up a few stars from other students who clearly needed the same reference I did.",
+      "For a database systems course, I built a full university management system in Java and JavaFX — student records, admin controls, the works — backed by a properly normalized schema.",
     stack: ["Java", "JavaFX", "SQL"],
     githubUrl:
       "https://github.com/DDR13GIT/Integrated_University_Management_System-Project",
@@ -134,7 +134,7 @@ const projects: Project[] = [
     category: "academic",
     icon: "paper-plane",
     story:
-      "Our computer graphics course used a bare-bones custom OpenGL wrapper called iGraphics, and instead of building the minimum required demo, I built AirRush — a full desktop flying game with collision detection and scoring, all rendered through that same framework. There's something satisfying about making a real game work with nothing but raw draw calls.",
+      "Our computer graphics course used a bare-bones custom OpenGL wrapper called iGraphics. For that, I built AirRush — a full desktop flying game with collision detection and scoring, all rendered through that same framework.",
     stack: ["C++", "OpenGL"],
     githubUrl: "https://github.com/DDR13GIT/AirRush_Game",
     year: "2022",
