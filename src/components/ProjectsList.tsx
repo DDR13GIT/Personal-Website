@@ -1,5 +1,6 @@
 import type { ProjectGroup } from "@/lib/projects";
 import { GitHubIcon } from "./icons";
+import { ProjectIcon } from "./ProjectIcons";
 import { RevealGroup } from "./RevealGroup";
 
 export function ProjectsList({ groups }: { groups: ProjectGroup[] }) {
@@ -53,18 +54,27 @@ export function ProjectsList({ groups }: { groups: ProjectGroup[] }) {
                         marginBottom: "6px",
                       }}
                     >
-                      <h3
-                        className="project-title"
+                      <div
                         style={{
-                          fontFamily: "var(--font-lora), serif",
-                          fontSize: "17px",
-                          fontWeight: 600,
-                          lineHeight: "22.1px",
-                          color: "var(--c-text)",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "8px",
                         }}
                       >
-                        {project.title}
-                      </h3>
+                        <ProjectIcon name={project.icon} />
+                        <h3
+                          className="project-title"
+                          style={{
+                            fontFamily: "var(--font-lora), serif",
+                            fontSize: "17px",
+                            fontWeight: 600,
+                            lineHeight: "22.1px",
+                            color: "var(--c-text)",
+                          }}
+                        >
+                          {project.title}
+                        </h3>
+                      </div>
                       <span
                         style={{
                           fontFamily: "var(--font-dm-mono), monospace",
@@ -175,6 +185,9 @@ export function ProjectsList({ groups }: { groups: ProjectGroup[] }) {
         }
         @media (hover: hover) and (pointer: fine) {
           .project-title-link:hover .project-title {
+            color: var(--c-link) !important;
+          }
+          .project-title-link:hover .project-icon {
             color: var(--c-link) !important;
           }
           .project-title-link:hover .project-code-link {

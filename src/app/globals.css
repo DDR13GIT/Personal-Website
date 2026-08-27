@@ -168,6 +168,59 @@
   }
 }
 
+/* Project icon motion — each project's icon gets a small, characterful loop */
+.project-icon {
+  flex-shrink: 0;
+  color: var(--c-muted);
+  transition: color 160ms var(--ease-out-expo);
+}
+
+@keyframes icon-tilt {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+@keyframes icon-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.16); }
+}
+@keyframes icon-wiggle {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+}
+@keyframes icon-swing {
+  0%, 100% { transform: rotate(-7deg); }
+  50% { transform: rotate(7deg); }
+}
+@keyframes icon-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes icon-drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(2px, -2px) rotate(6deg); }
+}
+@keyframes icon-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+@keyframes icon-ring-pulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+
+.icon-tilt { animation: icon-tilt 2.4s ease-in-out infinite; transform-origin: 50% 90%; }
+.icon-pulse { animation: icon-pulse 1.6s ease-in-out infinite; transform-origin: 50% 50%; }
+.icon-wiggle { animation: icon-wiggle 1.4s ease-in-out infinite; transform-origin: 15% 95%; }
+.icon-swing { animation: icon-swing 2.2s ease-in-out infinite; transform-origin: 50% 15%; }
+.icon-bounce { animation: icon-bounce 1.2s ease-in-out infinite; }
+.icon-drift { animation: icon-drift 2.4s ease-in-out infinite; }
+.icon-flicker { animation: icon-flicker 1.8s ease-in-out infinite; }
+
+.signal-arc { animation: icon-ring-pulse 1.8s ease-in-out infinite; }
+.signal-arc-1 { animation-delay: 0s; }
+.signal-arc-2 { animation-delay: 0.2s; }
+.signal-arc-3 { animation-delay: 0.4s; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     transition-duration: 0.01ms !important;

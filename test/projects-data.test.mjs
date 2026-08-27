@@ -21,6 +21,7 @@ test("every project has the fields a card needs to render", () => {
   for (const project of allProjects) {
     assert.ok(project.slug, `missing slug on ${project.title}`);
     assert.ok(project.title, `missing title on ${project.slug}`);
+    assert.ok(project.icon, `missing icon on ${project.slug}`);
     assert.ok(project.story.length > 0, `missing story on ${project.slug}`);
     assert.ok(project.stack.length > 0, `missing stack on ${project.slug}`);
     assert.match(
